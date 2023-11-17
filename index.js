@@ -3,11 +3,12 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const app = express();
 const employeeRoutes = require("./routes/EmployeeRoutes");
+const dotenv = require("dotenv");
+
+dotenv.config();
 
 mongoose.set("strictQuery", true);
-mongoose.connect(
-  "mongodb+srv://sakshi:dbsakshi1234@cluster0.nkp4liz.mongodb.net/MyCompany"
-);
+mongoose.connect(process.env.MONGODB);
 const db = mongoose.connection;
 db.on("error", () => {
   console.log("Error while connecting to database");
@@ -20,6 +21,6 @@ app.use(express.json());
 app.use(cors());
 app.use("/employees", employeeRoutes);
 
-app.listen(5000, () => {
-  console.log("server listening on 5000");
+app.listen(5001, () => {
+  console.log("server listening on 5001");
 });
